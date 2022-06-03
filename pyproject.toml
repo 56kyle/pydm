@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "pydm"
+version = "0.1.0"
+description = "A Python CLI/package that converts DM files into Python modules and vice versa."
+license = "LGPL-3.0-or-later"
+authors = ["Kyle Oliver <56kyleoliver@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/56kyle/pydm"
+repository = "https://github.com/56kyle/pydm"
+keywords = [
+    "python",
+    "python-package",
+    "byond",
+    "dm",
+    "cli",
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.1.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
