@@ -1,8 +1,8 @@
 
 import pydm.proc as proc
-import predefined._procs as _procs
-import predefined._vars as _vars
-import predefined._verbs as _verbs
+import pydm.predefined._procs as _procs
+import pydm.predefined._vars as _vars
+import pydm.predefined._verbs as _verbs
 
 
 class Atom:
@@ -20,7 +20,20 @@ class Atom:
         _procs.Write,
     ]
     vars = [
-
+        _vars.Type,
+        _vars.Name,
+        _vars.Desc,
+        _vars.Suffix,
+        _vars.Text,
+        _vars.Icon,
+        _vars.IconState,
+        _vars.Overlays,
+        _vars.Underlays,
+        _vars.Dir,
+        _vars.Visibility,
+        _vars.Luminosity,
+        _vars.Opacity,
+        _vars.Density,
     ]
     verbs = None
 

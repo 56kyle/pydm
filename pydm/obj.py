@@ -1,8 +1,9 @@
 
-import atom
-import predefined._procs as _procs
-import predefined._vars as _vars
-import predefined._verbs as _verbs
+import pydm.atom as atom
+import pydm.predefined._procs as _procs
+import pydm.predefined._vars as _vars
+import pydm.predefined._verbs as _verbs
+
 
 
 class Obj(atom.Atom):

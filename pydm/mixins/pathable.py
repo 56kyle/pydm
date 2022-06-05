@@ -1,15 +1,13 @@
 
 import os
+from typing import Iterable
 
 
 class Pathable:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, segments=Iterable[str], *args, **kwargs):
+        super().__init__(path=None, *args, **kwargs)
         self.segment = self.__name__
-        self.path = self._get_path()
 
-    def _get_path(self, existing_path=None):
-        if existing_path is None:
-            return super()._get_path(self.segment)
-        return os.path.join()
+
+
 
