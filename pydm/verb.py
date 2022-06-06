@@ -1,5 +1,9 @@
 
+import pydm.mixins.pathable as pathable
 
-class Verb:
+
+class Verb(pathable.Pathable):
     """The Verb class represents a verb object in dm code"""
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+

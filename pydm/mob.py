@@ -13,5 +13,17 @@ class Mob(atom.Atom):
         _procs.Logout,
         _procs.Move,
     ]
+    vars = [
+        *atom.Atom.vars,
+        _vars.Ckey,
+        _vars.Client,
+        _vars.Gender,
+        _vars.Key,
+        _vars.Loc,
+        _vars.Sight,
+        _vars.X,
+        _vars.Y,
+        _vars.Z,
+    ]
 
 

@@ -5,7 +5,7 @@ from typing import Generic, TypeVar
 T = TypeVar('T')
 
 
-class Var(Generic[T]):
+class Var:
     """The Var class represents a var object in dm code"""
     flags = ['global', 'const', 'static', 'tmp']
 

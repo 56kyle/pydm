@@ -29,7 +29,21 @@ class Parser:
         self.turf = turf.Turf()
         self.world = world.World()
 
+        self.bases = [
+            self.alias,
+            self.area,
+            self.atom,
+            self.client,
+            self.datum,
+            self.mob,
+            self.obj,
+            self.savefile,
+            self.turf,
+            self.world,
+        ]
+
     def preprocess(self, text: str) -> str:
+        text = self.process_directives(text)
         text = self.remove_comments(text)
         return ''
 
@@ -38,6 +52,10 @@ class Parser:
 
     def parse(self):
         pass
+
+    @staticmethod
+    def process_directives(text: str) -> str:
+        return text
 
     @staticmethod
     def remove_comments(text: str) -> str:
@@ -52,8 +70,12 @@ class Parser:
         return re.sub(r'//.*', '', text)
 
     @staticmethod
-    def remove_multi_line_comments(text: str) -> str:
-        return text
+    def remove_multi_line_comments(text: str | re.Match) -> str:
+        if isinstance(text, re.Match):
+            text = text.group(0)
+            if '/*' not in text:
+                return text
+        return re.sub(r'/\*(.*)\*/', Parser.remove_multi_line_comments, text)
 
 
 

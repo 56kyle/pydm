@@ -6,5 +6,11 @@ import pydm.predefined._verbs as _verbs
 
 
 class Turf(atom.Atom):
-    pass
+    vars = [
+        *atom.Atom.vars,
+        _vars.Loc,
+        _vars.X,
+        _vars.Y,
+        _vars.Z,
+    ]
 
