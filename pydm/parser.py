@@ -58,6 +58,10 @@ class Parser:
         return text
 
     @staticmethod
+    def standardize_multiline_strings(self):
+        pass
+
+    @staticmethod
     def remove_comments(text: str) -> str:
         text = Parser.remove_single_line_comments(text)
         print('without single line comments: ', text)
