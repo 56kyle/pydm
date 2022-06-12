@@ -29,6 +29,9 @@ class Parser:
         self.turf = turf.Turf()
         self.world = world.World()
 
+        self.definitions = {}
+        self.files = {}
+
         self.bases = [
             self.alias,
             self.area,

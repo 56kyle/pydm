@@ -1,11 +1,13 @@
 
 import pydm.proc as proc
+import pydm.byond as byond
+import pydm.mixins.pathable as pathable
 import pydm.predefined._procs as _procs
 import pydm.predefined._vars as _vars
 import pydm.predefined._verbs as _verbs
 
 
-class Atom:
+class Atom(byond.ByondObject, pathable.Pathable):
     """The Atom class is the base class for all objects in the game"""
     procs = [
         _procs.New,
@@ -38,6 +40,15 @@ class Atom:
     verbs = None
 
     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    @classmethod
+    def parse(cls, text: str):
+        """Gets the object from text"""
+        pass
+
+    def on_define(self, *args, **kwargs):
+        """Called when the object is defined"""
         pass
 
 

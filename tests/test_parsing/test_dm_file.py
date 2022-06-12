@@ -1,5 +1,6 @@
 
 import pytest
+import os
 
 import pydm.parsing.dm_file as dm_file
 
@@ -32,5 +33,4 @@ def test_dm_file_escape_text():
     assert 'This is a multiline' not in escaped_text
     assert 'string' not in escaped_text
     assert 'This is a file location' not in escaped_text
-
 

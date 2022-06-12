@@ -2,29 +2,22 @@ import re
 import uuid
 
 import pydm.parsing.structures as structures
+from typing import Dict, List
 
 
 class DmFile:
     def __init__(self, text, *args, **kwargs):
         self.text: str = text
-        self.preprocessed = self.preprocess(text)
-        self.parsed = self.parse()
-        self.objects = {}
+        self.definitions: Dict[str, ] = {}
         self.references = {}
+        self.objects = {}
+        self.preprocessed: str = self.preprocess(text)
 
-    @staticmethod
-    def preprocess(text):
-        pass
+    def preprocess(self, text):
+        return self.get_escaped_text(text)
 
     def parse(self):
         pass
-
-    @staticmethod
-    def replace_single_line_comments(text: str):
-        new_lines = []
-        for line in text.split('\n'):
-            if '//' in line:
-                new_lines.append(line.split('//')[0])
 
     def get_escaped_text(self, text: str, running: bool = True):
         new_text = text

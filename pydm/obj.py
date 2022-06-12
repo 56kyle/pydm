@@ -7,7 +7,7 @@ import pydm.predefined._verbs as _verbs
 
 
 
-class Obj(atom.Atom, pathable.Pathable):
+class Obj(atom.Atom):
     procs = [
         *atom.Atom.procs,
         _procs.Bump,
