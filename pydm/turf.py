@@ -6,6 +6,8 @@ import pydm.predefined._verbs as _verbs
 
 
 class Turf(atom.Atom):
+    root = 'turf'
+
     vars = [
         *atom.Atom.vars,
         _vars.Loc,

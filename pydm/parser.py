@@ -50,9 +50,6 @@ class Parser:
         text = self.remove_comments(text)
         return ''
 
-    def process(self, text: str):
-        return ''
-
     def parse(self):
         pass
 
@@ -83,6 +80,8 @@ class Parser:
             if '/*' not in text:
                 return text
         return re.sub(r'/\*(.*)\*/', Parser.remove_multi_line_comments, text)
+
+
 
 
 

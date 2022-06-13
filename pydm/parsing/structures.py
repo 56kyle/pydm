@@ -45,20 +45,25 @@ class DmString(DmObject):
 class SingleLineComment(DmComment):
     start = '//'
     end = '\n'
+    end_length = 0  # We want to keep the \n, so we can use it for nodes later
 
 class MultiLineComment(DmComment):
     start = '/*'
     end = '*/'
+    end_length = 2
 
 class SingleLineString(DmString):
     start = '"'
     end = '"'
+    end_length = 1
 
 class MultiLineString(DmString):
     start = '{"'
     end = '"}'
+    end_length = 2
 
 class SingleLineFileLocation(DmString):
     start = '\''
     end = '\''
+    end_length = 1
 

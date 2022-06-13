@@ -8,6 +8,8 @@ import pydm.predefined._verbs as _verbs
 
 
 class Obj(atom.Atom):
+    root = 'obj'
+
     procs = [
         *atom.Atom.procs,
         _procs.Bump,

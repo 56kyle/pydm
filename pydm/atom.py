@@ -6,9 +6,13 @@ import pydm.predefined._procs as _procs
 import pydm.predefined._vars as _vars
 import pydm.predefined._verbs as _verbs
 
+import re
+
 
 class Atom(byond.ByondObject, pathable.Pathable):
     """The Atom class is the base class for all objects in the game"""
+    root = 'atom'
+
     procs = [
         _procs.New,
         _procs.Click,
@@ -39,13 +43,13 @@ class Atom(byond.ByondObject, pathable.Pathable):
     ]
     verbs = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, text: str, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     @classmethod
     def parse(cls, text: str):
         """Gets the object from text"""
-        pass
+        re.fullmatch(r'^[^-_\s]+$', text)
 
     def on_define(self, *args, **kwargs):
         """Called when the object is defined"""

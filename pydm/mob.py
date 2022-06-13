@@ -6,6 +6,8 @@ import pydm.predefined._verbs as _verbs
 
 
 class Mob(atom.Atom):
+    root = 'mob'
+
     procs = [
         *atom.Atom.procs,
         _procs.Bump,
