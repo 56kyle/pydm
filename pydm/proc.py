@@ -6,10 +6,5 @@ class Proc:
     name: str = None
     code: str = None
 
-    def __init__(self, name: str, code: str, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.name: str = name
-        self.code: str = code
-
-
-

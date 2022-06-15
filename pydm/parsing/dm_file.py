@@ -13,20 +13,15 @@ class DmFile:
         self.text: str = text
         self.definitions: Dict[str, ] = {}
         self.objects = {}
-        self.preprocessed: str = self.preprocess(text)
-        self.without_comments: str = self.remove_comments(self.preprocessed)
-
-    def preprocess(self, text):
-        return self.get_escaped_text(text)
+        self.escaped_text: str = self.get_escaped_text(text)
+        self.without_comments: str = self.remove_comments(self.escaped_text)
+        self.without_line_breaks: str = self.replace_line_breaks(self.without_comments)
+        self.with_normalized_lines: str = self.normalize_new_lines(self.without_line_breaks)
+        self.preprocessed: str = self.with_normalized_lines
+        self.current_object = None
 
     def parse(self):
         pass
-
-    def remove_comments(self, text: str):
-        for reference in self.byond.references.values():
-            if isinstance(reference, structures.DmComment):
-                text = text.replace(reference.uuid, '')
-        return text
 
     def get_escaped_text(self, text: str, running: bool = True):
         new_text = text
@@ -61,6 +56,63 @@ class DmFile:
         reference = possible_types[location](text[location:ending + possible_types[location].end_length])
         self.byond.references[reference.uuid] = reference
         return text[:location] + reference.uuid + text[ending + possible_types[location].end_length:], 1
+
+    def remove_comments(self, text: str):
+        for reference in self.byond.references.values():
+            if isinstance(reference, structures.DmComment):
+                text = text.replace(reference.uuid, '')
+        return text
+
+    @staticmethod
+    def replace_line_breaks(text: str):
+        return re.sub(r'\\\n[ \t]*', '', text)
+
+    @staticmethod
+    def normalize_new_lines(text: str):
+        lines = []
+        for line in text.split('\n'):
+            new_line = line
+            spacer_tracker = line
+            spacers = []
+            for i, spacer in enumerate(spacers):
+                if spacer in new_line:
+                    new_line = spacer_tracker.replace(spacer, '', 1)
+                else:
+                    spacers.pop(i)
+            new_spacer = re.search(r'^([ \t]+)', spacer_tracker)
+            if new_spacer:
+                spacers.append(new_spacer.group(1))
+
+            if ';' in line:
+                spacers_combined = ''.join(spacers)
+                print(line, ' - ', spacers_combined)
+                new_line = line.replace(';', f'\n{spacers_combined}')
+            lines.append(new_line)
+        return '\n'.join(lines)
+
+    @staticmethod
+    def normalize_node_paths(text: str):
+        """Standardizes all node paths so they are absolute paths"""
+        lines = text.split('\n')
+        for i, line in enumerate(lines):
+            new_line = line
+            spacer_tracker = line
+            spacers = []
+            for j, spacer in enumerate(spacers):
+                if spacer in new_line:
+                    new_line = spacer_tracker.replace(spacer, '', 1)
+                else:
+                    spacers.pop(j)
+            new_spacer = re.search(r'^([ \t]+)', spacer_tracker)
+            if new_spacer:
+                spacers.append(new_spacer.group(1))
+
+
+
+
+
+
+
 
 
 

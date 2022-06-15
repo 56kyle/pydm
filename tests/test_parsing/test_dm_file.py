@@ -34,13 +34,23 @@ def test_dm_file_escape_text():
     assert 'string' not in escaped_text
     assert 'This is a file location' not in escaped_text
 
+def test_dm_file_normalize_new_lines():
+    dm = dm_file.DmFile('''/obj/test/thing
+        {
+            /obj/test/thing/butter;food;/obj/test/thing/fries
+            foo{bar;baz}
+        }''')
+    print(dm.with_normalized_lines)
+    assert dm.with_normalized_lines == ''
+
+
 def test_results():
     for file_name in os.listdir('../data'):
         if file_name.endswith('.dm'):
             with open(os.path.join('../data', file_name), 'r') as file:
                 text = file.read()
             dm = dm_file.DmFile(text)
-            dm.parse()
             with open(os.path.join('../data/results', file_name), 'w') as file:
-                file.write(dm.without_comments)
+                file.write(dm.with_normalized_lines)
+
 

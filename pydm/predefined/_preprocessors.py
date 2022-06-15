@@ -1,45 +1,51 @@
 
+import re
 import pydm.preprocessor as preprocessor
 
 
 class Define(preprocessor.Preprocessor):
     keyword = '#define'
-    syntax = '#define {name} {value}'
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def action(self, *args, **kwargs):
-        self.byond.define(self.name, self.value)
+    re_syntax = re.compile(r'^#define\s+(\w+)\s+(.*)$')
 
 class If(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#if'
+    re_syntax = re.compile(r'^#if\s+(?P<condition>.*)')
+    re_start = re.compile(r'^#if\s+(?P<condition>.*)$')
+    re_end = re.compile(r'^#endif$')
 
 class Elif(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#elif'
+    re_syntax = re.compile(r'^#elif\s+(?P<condition>.*)$')
+    re_start = re.compile(r'^#elif\s+(?P<condition>.*)$')
+    re_end = re.compile(r'^#e.*$')
 
 class Ifdef(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#ifdef'
+    re_syntax = re.compile(r'^#ifdef\s+(?P<condition>.*)$')
+    re_start = re.compile(r'^#ifdef\s+(?P<condition>.*)$')
+    re_end = re.compile(r'^#endif$')
 
 class Ifndef(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#ifndef'
+    re_syntax = re.compile(r'^#ifndef\s+(?P<condition>.*)$')
+    re_start = re.compile(r'^#ifndef\s+(?P<condition>.*)$')
+    re_end = re.compile(r'^#endif$')
 
 class Else(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#else'
+    re_syntax = re.compile(r'^#else$')
+    re_start = re.compile(r'^#else$')
+    re_end = re.compile(r'^#endif$')
 
 class Include(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#include'
+    re_syntax = re.compile(r'^#include\s+(?P<filename>.*)$')
 
 class Error(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#error'
+    re_syntax = re.compile(r'^#error\s+(?P<message>.*)$')
 
 class Warn(preprocessor.Preprocessor):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    keyword = '#warn'
+    re_syntax = re.compile(r'^#warn\s+(?P<message>.*)$')
 
