@@ -44,13 +44,14 @@ def test_dm_file_normalize_new_lines():
     assert dm.with_normalized_lines == ''
 
 
-def test_results():
-    for file_name in os.listdir('../data'):
+def test_results(pydm_dir):
+    data_dir = os.path.join(pydm_dir, 'data')
+    for file_name in os.listdir(data_dir):
         if file_name.endswith('.dm'):
-            with open(os.path.join('../data', file_name), 'r') as file:
+            with open(os.path.join(data_dir, file_name), 'r') as file:
                 text = file.read()
             dm = dm_file.DmFile(text)
-            with open(os.path.join('../data/results', file_name), 'w') as file:
+            with open(os.path.join(data_dir, 'results', file_name), 'w') as file:
                 file.write(dm.with_normalized_lines)
 
 

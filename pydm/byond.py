@@ -2,8 +2,6 @@
 import os
 import re
 
-import pydm.mixins.pathable as pathable
-
 from typing import Dict
 
 

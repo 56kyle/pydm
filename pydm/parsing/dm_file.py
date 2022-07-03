@@ -14,7 +14,7 @@ class DmFile:
         self.definitions: Dict[str, ] = {}
         self.objects = {}
         self.escaped_text: str = self.get_escaped_text(text)
-        self.without_comments: str = self.remove_comments(self.escaped_text)
+        self.without_comments: str = self.replace_comments(self.escaped_text)
         self.without_line_breaks: str = self.replace_line_breaks(self.without_comments)
         self.with_normalized_lines: str = self.normalize_new_lines(self.without_line_breaks)
         self.preprocessed: str = self.with_normalized_lines
@@ -30,6 +30,11 @@ class DmFile:
         return new_text
 
     def iter_escaped_text(self, text: str):
+        """
+        Iterates over the text and replaces escaped characters with their unescaped counterparts
+        :param text:
+        :return:
+        """
         first_single_line_comment = structures.SingleLineComment.find_start(text)
         first_multi_line_comment = structures.MultiLineComment.find_start(text)
         first_single_line_string = structures.SingleLineString.find_start(text)
@@ -57,18 +62,17 @@ class DmFile:
         self.byond.references[reference.uuid] = reference
         return text[:location] + reference.uuid + text[ending + possible_types[location].end_length:], 1
 
-    def remove_comments(self, text: str):
-        for reference in self.byond.references.values():
-            if isinstance(reference, structures.DmComment):
-                text = text.replace(reference.uuid, '')
+    @staticmethod
+    def replace_comments(text: str) -> str:
         return text
 
     @staticmethod
-    def replace_line_breaks(text: str):
+    def replace_line_breaks(text: str) -> str:
         return re.sub(r'\\\n[ \t]*', '', text)
 
     @staticmethod
-    def normalize_new_lines(text: str):
+    def normalize_new_lines(text: str) -> str:
+        """"""
         lines = []
         for line in text.split('\n'):
             new_line = line
@@ -91,7 +95,7 @@ class DmFile:
         return '\n'.join(lines)
 
     @staticmethod
-    def normalize_node_paths(text: str):
+    def normalize_node_paths(text: str) -> str:
         """Standardizes all node paths so they are absolute paths"""
         lines = text.split('\n')
         for i, line in enumerate(lines):
